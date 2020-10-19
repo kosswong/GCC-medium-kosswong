@@ -27,7 +27,6 @@ namespace Solution
             // 1 Banker 2
             // 2 Banker 3
             // 3 Pati 1
-            int min = (numOfBankers > numOfParticipants) ? numOfParticipants : numOfBankers;
             
             List<KeyValuePair<int, int>> list = new List<KeyValuePair<int, int>>();
             Dictionary<int, int> countRepect = new Dictionary<int, int>();
@@ -59,10 +58,7 @@ namespace Solution
                 }
             }
             
-            int tempMax = countRepect.Values.Max() > countRepect.Keys.Max() ? countRepect.Values.Max() : countRepect.Keys.Max();
-            if(tempMax > min) min = tempMax;
-            
-            return min;
+            return countRepect.Values.Max() > countRepect.Keys.Max() ? countRepect.Values.Max() : countRepect.Keys.Max();
         }
 
         private static int[][] parsePreferences(String[] preferences)
