@@ -23,6 +23,7 @@ class Solution
         store.Sort();
         store.Reverse();
         for(int j = 0; j < m; j++){
+            if(outcome + store[j] >= outcome)
                 outcome += store[j];
         }
         
