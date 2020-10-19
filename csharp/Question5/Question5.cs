@@ -21,12 +21,13 @@ namespace Solution
         // You may change this function parameters
         static int CalculateMinimumSession(int numOfBankers, int numOfParticipants, int[][] bankersPreferencesArrOfArr, int[][] participantsPreferencesArrOfArr)
         {
-            // Participant's code will go here
-
-            // 
-            List<KeyValuePair<int, int>> list = new List<KeyValuePair<int, int>>();
             
-            // Count RepectMeeting
+            // Participant's code will go here
+            // numOfBankers 2, 由1開始; numOfParticipants 3, 由1開始
+            // How many room in 公司, 以最少numOfBankers/最少numOfParticipants為準
+            int roomEachTime = (numOfBankers < numOfParticipants) ? numOfBankers : numOfParticipants;
+            
+            List<KeyValuePair<int, int>> list = new List<KeyValuePair<int, int>>();
             Dictionary<int, int> countRepect = new Dictionary<int, int>();
             
             // Add banker pair
@@ -57,10 +58,9 @@ namespace Solution
                 }
             }
             
-            int repectList = (countRepect.Values.Max() > countRepect.Keys.Max()) ? countRepect.Values.Max() : countRepect.Keys.Max();
-            Console.WriteLine(repectList);
+            int countRR = countRepect.Values.Max() > countRepect.Keys.Max() ? countRepect.Values.Max() : countRepect.Keys.Max();
             
-            return repectList;
+            return countRR > roomEachTime ? countRR : roomEachTime;
         }
 
         private static int[][] parsePreferences(String[] preferences)
