@@ -59,11 +59,8 @@ namespace Solution
                 }
             }
             
-            return countRepect.Values.Max() > countRepect.Keys.Max() ? countRepect.Values.Max() : countRepect.Keys.Max();
-            
-            if(list.Count > min){
-                return (list.Count/min) + 1;
-            }
+            int tempMax = countRepect.Values.Max() > countRepect.Keys.Max() ? countRepect.Values.Max() : countRepect.Keys.Max();
+            if(tempMax > min) min = tempMax;
             
             return min;
         }
