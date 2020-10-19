@@ -30,12 +30,15 @@ namespace Solution
             int min = (numOfBankers > numOfParticipants) ? numOfParticipants : numOfBankers;
             
             List<KeyValuePair<int, int>> list = new List<KeyValuePair<int, int>>();
+            Dictionary<int, int> countRepect = new Dictionary<int, int>();
+            
             // Add banker pair
             for(int i=0; i < numOfBankers; i++){
                 foreach (int item in bankersPreferencesArrOfArr[i]){
-                    if(!list.Contains(new KeyValuePair<int, int>(i, (numOfBankers-1+item))))
+                    if(!list.Contains(new KeyValuePair<int, int>(i, (numOfBankers-1+item)))){
                         list.Add(new KeyValuePair<int, int>(i, (numOfBankers-1+item)));
-                    //Console.WriteLine("Banker ID:"+i+" "+(numOfBankers-1+item));
+                    }
+                    Console.WriteLine("Banker ID:"+i+" "+(numOfBankers-1+item));
                 }
             }
             // Add pati pair
@@ -43,9 +46,20 @@ namespace Solution
                 foreach (int item in participantsPreferencesArrOfArr[i]){
                     if(!list.Contains(new KeyValuePair<int, int>((item-1), (numOfBankers+i))))
                         list.Add(new KeyValuePair<int, int>((item-1), (numOfBankers+i)));
-                    //Console.WriteLine("Pati ID:"+(numOfBankers+i)+" "+(item-1));
+                    Console.WriteLine("Pati ID:"+(numOfBankers+i)+" "+(item-1));
                 }
             }
+            
+            foreach (KeyValuePair<int, int> kvp in list)
+            {
+                if(!countRepect.ContainsKey(kvp.Key)){
+                    countRepect.Add(kvp.Key, 1);
+                }else{
+                    countRepect[kvp.Key]++;
+                }
+            }
+            
+            return countRepect.Values.Max() > countRepect.Keys.Max() ? countRepect.Values.Max() : countRepect.Keys.Max();
             
             if(list.Count > min){
                 return (list.Count/min) + 1;
