@@ -60,7 +60,7 @@ namespace Solution
             
             int countRR = countRepect.Values.Max() > countRepect.Keys.Max() ? countRepect.Values.Max() : countRepect.Keys.Max();
             
-            return countRR < roomEachTime ? countRR : roomEachTime;
+            return countRR;
         }
 
         private static int[][] parsePreferences(String[] preferences)
