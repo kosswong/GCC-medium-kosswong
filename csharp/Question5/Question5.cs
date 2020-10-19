@@ -22,7 +22,36 @@ namespace Solution
         static int CalculateMinimumSession(int numOfBankers, int numOfParticipants, int[][] bankersPreferencesArrOfArr, int[][] participantsPreferencesArrOfArr)
         {
             // Participant's code will go here
-            return -1;
+            // Reassign ID, id of newNumOfParticipants+=numOfBankers
+            // 0 Banker 1
+            // 1 Banker 2
+            // 2 Banker 3
+            // 3 Pati 1
+            int min = (numOfBankers > numOfParticipants) ? numOfParticipants : numOfBankers;
+            
+            List<KeyValuePair<int, int>> list = new List<KeyValuePair<int, int>>();
+            // Add banker pair
+            for(int i=0; i < numOfBankers; i++){
+                foreach (int item in bankersPreferencesArrOfArr[i]){
+                    if(!list.Contains(new KeyValuePair<int, int>(i, (numOfBankers-1+item))))
+                        list.Add(new KeyValuePair<int, int>(i, (numOfBankers-1+item)));
+                    //Console.WriteLine("Banker ID:"+i+" "+(numOfBankers-1+item));
+                }
+            }
+            // Add pati pair
+            for(int i=0; i < numOfParticipants; i++){
+                foreach (int item in participantsPreferencesArrOfArr[i]){
+                    if(!list.Contains(new KeyValuePair<int, int>((item-1), (numOfBankers+i))))
+                        list.Add(new KeyValuePair<int, int>((item-1), (numOfBankers+i)));
+                    //Console.WriteLine("Pati ID:"+(numOfBankers+i)+" "+(item-1));
+                }
+            }
+            
+            if(list.Count > min){
+                return (list.Count/min) + 1;
+            }
+            
+            return min;
         }
 
         private static int[][] parsePreferences(String[] preferences)
