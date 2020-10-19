@@ -21,7 +21,17 @@ namespace Solution
         static String Encrypt(String words)
         {
             // Participant's code will go here
-            return "";
+            words = String.Concat(words.Where(c => !Char.IsWhiteSpace(c)));
+            String newWords = "";
+            int count = words.Length;
+            int sq = (int) Math.Ceiling(Math.Sqrt(count));
+            for (int j = 0; j < sq; j++){
+                for (int i = j; i < words.Length; i+=sq){
+                    newWords = newWords + words[i];
+                }
+                newWords = newWords + " ";
+            }
+            return newWords;
         }
 
         static void Main(string[] args)
