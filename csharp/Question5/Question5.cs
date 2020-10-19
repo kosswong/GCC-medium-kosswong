@@ -22,13 +22,11 @@ namespace Solution
         static int CalculateMinimumSession(int numOfBankers, int numOfParticipants, int[][] bankersPreferencesArrOfArr, int[][] participantsPreferencesArrOfArr)
         {
             // Participant's code will go here
-            // Reassign ID, id of newNumOfParticipants+=numOfBankers
-            // 0 Banker 1
-            // 1 Banker 2
-            // 2 Banker 3
-            // 3 Pati 1
-            
+
+            // 
             List<KeyValuePair<int, int>> list = new List<KeyValuePair<int, int>>();
+            
+            // Count RepectMeeting
             Dictionary<int, int> countRepect = new Dictionary<int, int>();
             
             // Add banker pair
@@ -49,6 +47,7 @@ namespace Solution
                 }
             }
             
+            // Count 
             foreach (KeyValuePair<int, int> kvp in list)
             {
                 if(!countRepect.ContainsKey(kvp.Key)){
@@ -58,7 +57,10 @@ namespace Solution
                 }
             }
             
-            return countRepect.Values.Max() > countRepect.Keys.Max() ? countRepect.Values.Max() : countRepect.Keys.Max();
+            int repectList = (countRepect.Values.Max() > countRepect.Keys.Max()) ? countRepect.Values.Max() : countRepect.Keys.Max();
+            Console.WriteLine(repectList);
+            
+            return repectList;
         }
 
         private static int[][] parsePreferences(String[] preferences)
