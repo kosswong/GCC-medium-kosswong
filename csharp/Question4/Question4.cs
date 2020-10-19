@@ -8,7 +8,25 @@ class Solution
     public static double maximumExpectedMoney(int n, int m, double[] p, double[] x, double[] y)
     {
         //Participants will add code here
-        return -1;
+        //n: the number of trades available
+        //m: the maximum number of trades allowed
+        //p: probability of profit
+        //x: profit
+        //y: lost
+        
+        double outcome = 0;
+        List<double> store = new List<double>();
+        for(int i = 0; i < n; i++){
+            store.Add(p[i]*x[i]-((1-p[i])*y[i]));
+        }
+        store.Sort();
+        store.Reverse();
+        for(int j = 0; j < m; j++){
+            if(outcome + store[j] >= outcome)
+                outcome += store[j];
+        }
+        
+        return outcome;
     }
 
 
@@ -31,7 +49,7 @@ class Solution
         double result = maximumExpectedMoney(n,m,p,x,y);
         
         // Do not remove below line
-        Console.WriteLine(result);
+        Console.WriteLine("{0:0.00}", result);
         // Do not print anything after this line
     }
 }
