@@ -13,6 +13,7 @@ class Solution
         //p: probability of profit
         //x: profit
         //y: lost
+        // Can do only one time transactin
         
         double outcome = 0;
         List<double> store = new List<double>();
@@ -22,7 +23,6 @@ class Solution
         store.Sort();
         store.Reverse();
         for(int j = 0; j < m; j++){
-            if(outcome + store[j] >= outcome)
                 outcome += store[j];
         }
         
