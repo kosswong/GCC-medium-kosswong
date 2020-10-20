@@ -18,49 +18,51 @@ namespace Solution
     class Solution
     {
 
-        // You may change this function parameters
         static int CalculateMinimumSession(int numOfBankers, int numOfParticipants, int[][] bankersPreferencesArrOfArr, int[][] participantsPreferencesArrOfArr)
         {
             
-            // Participant's code will go here
-            // numOfBankers 2, 由1開始; numOfParticipants 3, 由1開始
-            // How many room in 公司, 以最少numOfBankers/最少numOfParticipants為準
-            int roomEachTime = (numOfBankers < numOfParticipants) ? numOfBankers : numOfParticipants;
+            Dictionary<int, List<int>> dictionary = new Dictionary<int, List<int>>();
             
-            List<KeyValuePair<int, int>> list = new List<KeyValuePair<int, int>>();
-            Dictionary<int, int> countRepect = new Dictionary<int, int>();
-            
-            // Add banker pair
             for(int i=0; i < numOfBankers; i++){
                 foreach (int item in bankersPreferencesArrOfArr[i]){
-                    if(!list.Contains(new KeyValuePair<int, int>(i, (numOfBankers-1+item)))){
-                        list.Add(new KeyValuePair<int, int>(i, (numOfBankers-1+item)));
-                    }
-                    Console.WriteLine("Banker ID:"+i+" "+(numOfBankers-1+item));
+                    if (!dictionary.ContainsKey(i))
+                        dictionary.Add(i, new List<int>());
+                    if (!dictionary[i].Contains((numOfBankers-1+item)))
+                    dictionary[i].Add((numOfBankers-1+item));
                 }
             }
-            // Add pati pair
+            
             for(int i=0; i < numOfParticipants; i++){
                 foreach (int item in participantsPreferencesArrOfArr[i]){
-                    if(!list.Contains(new KeyValuePair<int, int>((item-1), (numOfBankers+i))))
-                        list.Add(new KeyValuePair<int, int>((item-1), (numOfBankers+i)));
-                    Console.WriteLine("Pati ID:"+(numOfBankers+i)+" "+(item-1));
+                    if (!dictionary.ContainsKey((item-1)))
+                        dictionary.Add((item-1), new List<int>());
+                    if (!dictionary[(item-1)].Contains((numOfBankers+i)))
+                    dictionary[(item-1)].Add((numOfBankers+i));
                 }
             }
             
-            // Count 
-            foreach (KeyValuePair<int, int> kvp in list)
-            {
-                if(!countRepect.ContainsKey(kvp.Key)){
-                    countRepect.Add(kvp.Key, 1);
-                }else{
-                    countRepect[kvp.Key]++;
+            // Start meeting
+            int repectTime = 0;
+            bool empty = false;
+            
+            while(!empty){
+                List<int> currentTeamPairedStudent = new List<int>();
+                for(int i=0; i < numOfBankers; i++){
+                    foreach (int item in dictionary[i]){
+                        if (!currentTeamPairedStudent.Contains(item)){
+                            currentTeamPairedStudent.Add(item);
+                            dictionary[i].Remove(item);
+                            break;
+                        }
+                    }
+                }
+                repectTime++;
+                empty = true;
+                for(int i=0; i < numOfBankers; i++){
+                    if(dictionary[i].Any()) empty = false;
                 }
             }
-            
-            int countRR = countRepect.Values.Max() > countRepect.Keys.Max() ? countRepect.Values.Max() : countRepect.Keys.Max();
-            
-            return countRR;
+            return repectTime;
         }
 
         private static int[][] parsePreferences(String[] preferences)
