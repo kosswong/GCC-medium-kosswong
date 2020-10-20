@@ -30,7 +30,6 @@ namespace Solution
                     if(!list.Contains(new KeyValuePair<int, int>(i, (numOfBankers-1+item)))){
                         list.Add(new KeyValuePair<int, int>(i, (numOfBankers-1+item)));
                     }
-                    Console.WriteLine("Banker ID:"+i+" "+(numOfBankers-1+item));
                 }
             }
             // Add pati pair
@@ -38,7 +37,6 @@ namespace Solution
                 foreach (int item in participantsPreferencesArrOfArr[i]){
                     if(!list.Contains(new KeyValuePair<int, int>((item-1), (numOfBankers+i))))
                         list.Add(new KeyValuePair<int, int>((item-1), (numOfBankers+i)));
-                    Console.WriteLine("Pati ID:"+(numOfBankers+i)+" "+(item-1));
                 }
             }
             
