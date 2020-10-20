@@ -24,7 +24,6 @@ namespace Solution
             List<KeyValuePair<int, int>> list = new List<KeyValuePair<int, int>>();
             Dictionary<int, int> countRepect = new Dictionary<int, int>();
             
-            // Add banker pair
             for(int i=0; i < numOfBankers; i++){
                 foreach (int item in bankersPreferencesArrOfArr[i]){
                     if(!list.Contains(new KeyValuePair<int, int>(i, (numOfBankers-1+item)))){
@@ -32,7 +31,6 @@ namespace Solution
                     }
                 }
             }
-            // Add pati pair
             for(int i=0; i < numOfParticipants; i++){
                 foreach (int item in participantsPreferencesArrOfArr[i]){
                     if(!list.Contains(new KeyValuePair<int, int>((item-1), (numOfBankers+i))))
