@@ -20,60 +20,40 @@ namespace Solution
 
         static int CalculateMinimumSession(int numOfBankers, int numOfParticipants, int[][] bankersPreferencesArrOfArr, int[][] participantsPreferencesArrOfArr)
         {
-
-            int roomEachTime = (numOfBankers < numOfParticipants) ? numOfBankers : numOfParticipants;
             
-            int repectTime = 0;
-            bool empty = false;
-            Dictionary<int, List<int>> dictionary = new Dictionary<int, List<int>>();
+            List<KeyValuePair<int, int>> list = new List<KeyValuePair<int, int>>();
+            Dictionary<int, int> countRepect = new Dictionary<int, int>();
             
-            for(int i=1; i <= numOfBankers; i++){
-                foreach (int item in bankersPreferencesArrOfArr[i-1]){
-                    if (!dictionary.ContainsKey(i))
-                        dictionary.Add(i, new List<int>());
-                    if (!dictionary[i].Contains(item))
-                        dictionary[i].Add(item);
-                }
-            }
-            
-            for(int i=1; i <= numOfParticipants; i++){
-                foreach (int item in participantsPreferencesArrOfArr[i-1]){
-                    if (!dictionary.ContainsKey(item))
-                        dictionary.Add(item, new List<int>());
-                    if (!dictionary[item].Contains(i))
-                        dictionary[item].Add(i);
-                }
-            }
-                               
-            for(int i=1; i <= numOfBankers; i++){
-                foreach (int item in dictionary[i]){
-                    Console.WriteLine("Professor: "+i+" Student: "+item);
-                }
-                Console.WriteLine("\n");
-            }
-                
-            while(!empty){
-                List<int> currentTeamPairedStudent = new List<int>();
-                for(int i=1; i <= numOfBankers; i++){
-                    foreach (int item in dictionary[i]){
-                        if (!currentTeamPairedStudent.Contains(item)){
-                            Console.WriteLine("Paried: {0} {1}", i, item);
-                            currentTeamPairedStudent.Add(item);
-                            dictionary[i].Remove(item);
-                            break;
-                        }
+            // Add banker pair
+            for(int i=0; i < numOfBankers; i++){
+                foreach (int item in bankersPreferencesArrOfArr[i]){
+                    if(!list.Contains(new KeyValuePair<int, int>(i, (numOfBankers-1+item)))){
+                        list.Add(new KeyValuePair<int, int>(i, (numOfBankers-1+item)));
                     }
+                    Console.WriteLine("Banker ID:"+i+" "+(numOfBankers-1+item));
                 }
-                repectTime++;
-            
-                empty = true;
-                for(int i=1; i <= numOfBankers; i++){
-                    if(dictionary[i].Any()) empty = false;
-                }
-                
-                Console.WriteLine("RepectTime: {0} {1} {2}", repectTime, empty, roomEachTime);
             }
-            return repectTime;
+            // Add pati pair
+            for(int i=0; i < numOfParticipants; i++){
+                foreach (int item in participantsPreferencesArrOfArr[i]){
+                    if(!list.Contains(new KeyValuePair<int, int>((item-1), (numOfBankers+i))))
+                        list.Add(new KeyValuePair<int, int>((item-1), (numOfBankers+i)));
+                    Console.WriteLine("Pati ID:"+(numOfBankers+i)+" "+(item-1));
+                }
+            }
+            
+            // Count 
+            foreach (KeyValuePair<int, int> kvp in list)
+            {
+                if(!countRepect.ContainsKey(kvp.Key)){
+                    countRepect.Add(kvp.Key, 1);
+                }else{
+                    countRepect[kvp.Key]++;
+                }
+            }
+            
+            return countRepect.Values.Max() > countRepect.Keys.Max() ? countRepect.Values.Max() : countRepect.Keys.Max();
+
         }
 
         private static int[][] parsePreferences(String[] preferences)
