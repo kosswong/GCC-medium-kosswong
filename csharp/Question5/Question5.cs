@@ -18,23 +18,39 @@ namespace Solution
     class Solution
     {
 
+        // You may change this function parameters
         static int CalculateMinimumSession(int numOfBankers, int numOfParticipants, int[][] bankersPreferencesArrOfArr, int[][] participantsPreferencesArrOfArr)
         {
+            // Participant's code will go here
+            // Reassign ID, id of newNumOfParticipants+=numOfBankers
+            // 0 Banker 1
+            // 1 Banker 2
+            // 2 Banker 3
+            // 3 Pati 1
             
             List<KeyValuePair<int, int>> list = new List<KeyValuePair<int, int>>();
             Dictionary<int, int> countRepect = new Dictionary<int, int>();
             
-            for(int i=0; i < numOfBankers; i++){
-                foreach (int item in bankersPreferencesArrOfArr[i]){
-                    if(!list.Contains(new KeyValuePair<int, int>(i, (numOfBankers-1+item)))){
-                        list.Add(new KeyValuePair<int, int>(i, (numOfBankers-1+item)));
+            // Add banker pair
+            for(int bankerID=1; bankerID <= numOfBankers; bankerID++){
+                foreach (int patiID in bankersPreferencesArrOfArr[bankerID-1]){
+                    if(patiID > 0 && patiID <= numOfParticipants){
+                        if(!list.Contains(new KeyValuePair<int, int>(bankerID, patiID))){
+                            list.Add(new KeyValuePair<int, int>(bankerID, patiID));
+                            Console.WriteLine("Banker ID:"+bankerID+" "+patiID);
+                        }
                     }
                 }
             }
-            for(int i=0; i < numOfParticipants; i++){
-                foreach (int item in participantsPreferencesArrOfArr[i]){
-                    if(!list.Contains(new KeyValuePair<int, int>((item-1), (numOfBankers+i))))
-                        list.Add(new KeyValuePair<int, int>((item-1), (numOfBankers+i)));
+            // Add pati pair
+            for(int patiID=1; patiID <= numOfParticipants; patiID++){
+                foreach (int bankerID in participantsPreferencesArrOfArr[patiID-1]){
+                    if(bankerID > 0 && bankerID <= numOfBankers){
+                        if(!list.Contains(new KeyValuePair<int, int>(bankerID, patiID))){
+                            list.Add(new KeyValuePair<int, int>(bankerID, patiID));
+                        }
+                        Console.WriteLine("Pati ID:"+patiID+" "+bankerID);
+                    }
                 }
             }
             
@@ -48,9 +64,7 @@ namespace Solution
                 }
             }
             
-            
             return countRepect.Values.Max() > countRepect.Keys.Max() ? countRepect.Values.Max() : countRepect.Keys.Max();
-
         }
 
         private static int[][] parsePreferences(String[] preferences)
