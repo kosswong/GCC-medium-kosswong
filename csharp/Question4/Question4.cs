@@ -15,10 +15,17 @@ class Solution
         //y: lost
         // Can do only one time transactin
         
+        n = (n > 100000) ? 100000 : n;
+        m = (m > 100000) ? 100000 : m;
+        n = (n < 0) ? 0 : n;
+        m = (m < 0) ? 0 : m;
         double outcome = 0;
         List<double> store = new List<double>();
         for(int i = 0; i < n; i++){
-            store.Add(p[i]*x[i]-((1-p[i])*y[i]));
+            double pfixed = (p[i] > 1) ? 1 : ((p[i] < 0) ? 0 : p[i]);
+            double xfixed = (x[i] > 100) ? 100 : ((x[i] < 0) ? 0 : x[i]);
+            double yfixed = (y[i] > 100) ? 100 : ((y[i] < 0) ? 0 : y[i]);
+            store.Add(pfixed*xfixed-((1-pfixed)*yfixed));
         }
         store.Sort();
         store.Reverse();
