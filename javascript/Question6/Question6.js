@@ -25,15 +25,13 @@ function readLine() {
 }
 
 function encrypt(words){
-    // Participant's code
-    let str = words.replace(/\s+/g, '');
+    words = words.replace(/\s+/g, '');
     let newWords = "";
-    let count = str.length;
+    let count = words.length;
     let sq = Math.ceil(Math.sqrt(count));
     for (let j = 0; j < sq; j++){
-        for (let i = j; i < count; i+=sq){
-            newWords = newWords + str.charAt(i);
-        }
+        for (let i = j; i < count; i+=sq)
+            newWords = newWords + words.charAt(i);
         newWords = newWords + " ";
     }
     return newWords;
@@ -41,10 +39,6 @@ function encrypt(words){
 
 function main() {
     const words = readLine();
-
     const result = encrypt(words);
-
-    // Please do not remove the below line.
     console.log(result)
-    // Do not print anything after this line
 }
