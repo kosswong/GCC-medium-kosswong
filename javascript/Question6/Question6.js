@@ -26,7 +26,17 @@ function readLine() {
 
 function encrypt(words){
     // Participant's code
-    return -1;
+    let str = words.replace(/\s+/g, '');
+    let newWords = "";
+    let count = str.length;
+    let sq = Math.ceil(Math.sqrt(count));
+    for (let j = 0; j < sq; j++){
+        for (let i = j; i < count; i+=sq){
+            newWords = newWords + str.charAt(i);
+        }
+        newWords = newWords + " ";
+    }
+    return newWords;
 }
 
 function main() {
