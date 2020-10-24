@@ -62,21 +62,16 @@ double maximumExpectedMoney(int n, int m, float p[], float x[], float y[] )
 
 int main(){
     int n, m;
-
     cin >> n >> m;
     float p[n], x[n], y[n];
-
     for(int i = 0; i < n; i++)
         cin >> p[i];
     for(int i = 0; i < n; i++)
         cin >> x[i];
     for(int i = 0; i < n; i++)
         cin >> y[i];
-
     float result=maximumExpectedMoney(n,m,p,x,y);
-    // Do not remove below line
     cout << fixed << setprecision(2) << result << endl;
-    // Do not print anything after this line
 
     return 0;
 }
