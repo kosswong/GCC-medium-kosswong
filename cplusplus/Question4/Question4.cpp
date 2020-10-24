@@ -53,6 +53,7 @@ double maximumExpectedMoney(int n, int m, float p[], float x[], float y[] )
         if(isgreater(y[i],100.00)) y[i] = 100;
         store[i] = p[i]*x[i]-(1-p[i])*y[i];
     }
+    
     quickSort(store, 0, n - 1);
     for (int i = n-1; i > n-1-m; i--)
         if(isgreaterequal(outcome + store[i], outcome))
