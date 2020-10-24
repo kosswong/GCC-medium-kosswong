@@ -76,7 +76,6 @@ int main(){
 
     float result=maximumExpectedMoney(n,m,p,x,y);
     cout << fixed << setprecision(2) << result << endl;
-    // Do not print anything after this line
 
     return 0;
 }
