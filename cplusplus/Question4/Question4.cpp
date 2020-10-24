@@ -46,8 +46,8 @@ double maximumExpectedMoney(int n, int m, float p[], float x[], float y[] )
     
     for(int i = 0; i < n; i++){
         if(isless(p[i],0)) p[i] = 0;
-        if(isgreater(p[i],0)) p[i] = 1;
-        if(isless(x[i],0)) x[i] = 0;
+        if(isgreater(p[i],1)) p[i] = 1;
+        if(isless(x[i],0.00)) x[i] = 0;
         if(isless(y[i],0)) y[i] = 0;
         if(isgreater(x[i],100)) x[i] = 100;
         if(isgreater(y[i],100)) y[i] = 100;
