@@ -58,6 +58,7 @@ double maximumExpectedMoney(int n, int m, float p[], float x[], float y[] )
     for (int i = n-1; i > n-1-m; i--)
         if(isgreaterequal(outcome + store[i], outcome))
             outcome += store[i];
+            
     return outcome;
 }
 
