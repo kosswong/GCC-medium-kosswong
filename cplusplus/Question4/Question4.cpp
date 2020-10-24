@@ -73,8 +73,7 @@ int main(){
     for(int i = 0; i < n; i++)
         cin >> y[i];
 
-    float result=maximumExpectedMoney(n,m,p,x,y);
-    // Do not remove below line
+    float result=maximumExpectedMoney(n,m,p,x,y);=
     cout << fixed << setprecision(2) << result << endl;
     // Do not print anything after this line
 
