@@ -17,7 +17,7 @@ string encrypt(string words) {
     int x = ceil(sqrt(c));
     int spaceToFill = x*x-c;
     
-    for (int i = 0; i < spaceToFill-1; i++){
+    for (int i = 0; i <= spaceToFill-1; i++){
         words += ' ';
     }
     
