@@ -19,6 +19,7 @@ double maximumExpectedMoney(int n, int k, double p[], double x[], double y[] )
             test.push_back(0);
         }
     }
+    
     std::priority_queue<std::pair<double, int>> q;
     for (int i = 0; i < test.size(); ++i) {
         q.push(std::pair<double, int>(test[i], i));
