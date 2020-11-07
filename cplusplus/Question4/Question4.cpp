@@ -1,4 +1,5 @@
 #include<bits/stdc++.h>
+
 using namespace std;
 
 double maximumExpectedMoney(int n, int k, double p[], double x[], double y[] )
@@ -6,6 +7,12 @@ double maximumExpectedMoney(int n, int k, double p[], double x[], double y[] )
     double sum = 0;
     vector<double> test;
     for(int i = 0; i < n;i++){
+        if(isless(p[i],0.00)) p[i] = 0;
+        if(isgreater(p[i],1.00)) p[i] = 1;
+        if(isless(x[i],0.00)) x[i] = 0;
+        if(isless(y[i],0.00)) y[i] = 0;
+        if(isgreater(x[i],100.00)) x[i] = 100;
+        if(isgreater(y[i],100.00)) y[i] = 100;
         if((p[i]*x[i]-(1-p[i])*y[i]) > 0){
             test.push_back(p[i]*x[i]-(1-p[i])*y[i]);
         }else{
@@ -22,6 +29,7 @@ double maximumExpectedMoney(int n, int k, double p[], double x[], double y[] )
         q.pop();
     }
     return sum;
+
 }
 
 
