@@ -4,8 +4,6 @@ using namespace std;
 
 double maximumExpectedMoney(int n, int k, double p[], double x[], double y[] )
 {
-    if(k > 100000) k = 100000;
-    if(n > 100000) n = 100000;
     double sum = 0;
     vector<double> test;
     for(int i = 0; i < n;i++){
@@ -42,6 +40,8 @@ int main(){
     double p[n], x[n], y[n];
     if(m < 0) m = 1;
     if(n < 0) n = 1;
+    if(m > 100000) m = 100000;
+    if(n > 100000) n = 100000;
     if(m > n) m = n;
     
     for(int i = 0; i < n; i++)
