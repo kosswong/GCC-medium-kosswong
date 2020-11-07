@@ -40,6 +40,7 @@ int main(){
     double p[n], x[n], y[n];
     if(m < 0) m = 1;
     if(n < 0) n = 1;
+    
     if(m > 100000) m = 100000;
     if(n > 100000) n = 100000;
     if(m > n) m = n;
