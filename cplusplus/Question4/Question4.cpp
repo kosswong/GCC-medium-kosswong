@@ -1,5 +1,4 @@
 #include<bits/stdc++.h>
-
 using namespace std;
 
 double maximumExpectedMoney(int n, int k, double p[], double x[], double y[] )
@@ -16,7 +15,6 @@ double maximumExpectedMoney(int n, int k, double p[], double x[], double y[] )
     }
     return p[0];
 }
-
 
 int main(){
     int n, m;
