@@ -7,7 +7,7 @@ double maximumExpectedMoney(int n, int k, double p[], double x[], double y[] )
     vector<double> t;
     for(int i = 0; i < n;t.push_back(((p[i]*x[i]-(1-p[i])*y[i]) > 0) ? (p[i]*x[i]-(1-p[i])*y[i]) : 0), i++){}
     std::priority_queue<std::pair<double, int>> q;
-    for (int i = 0; i < t.size(); q.push(std::pair<double, int>(t[i], i)), ++i){}
+    for (int i = 0; i < t.size(); q.push(std::pair<double, int>(t[i], i)), ++i){ }
     p[0] = 0;
     for (int i = 0; i < k; ++i) {
         double ki = q.top().first;
