@@ -18,53 +18,80 @@ namespace Solution
     class Solution
     {
 
-        // You may change this function parameters
-        static int CalculateMinimumSession(int numOfBankers, int numOfParticipants, int[][] bankersPreferencesArrOfArr, int[][] participantsPreferencesArrOfArr)
+        static int CalculateMinimumSession(int numOfSmallers, int numOfBigger, int[][] smallerPreferencesArrOfArr, int[][] biggerPreferencesArrOfArr)
         {
-            // Participant's code will go here
-            // Reassign ID, id of newNumOfParticipants+=numOfBankers
-            // 0 Banker 1
-            // 1 Banker 2
-            // 2 Banker 3
-            // 3 Pati 1
+
+            int repectTime = 0;
+            bool empty = false;
+            Dictionary<int, List<int>> dictionary = new Dictionary<int, List<int>>();
+            List<int> on9smaller = new List<int>();
+            List<int> on9bigger = new List<int>();
             
-            List<KeyValuePair<int, int>> list = new List<KeyValuePair<int, int>>();
-            Dictionary<int, int> countRepect = new Dictionary<int, int>();
+            for(int i=1; i <= numOfSmallers; i++){
+                int noton9 = 0;
+                dictionary.Add(i, new List<int>());
+                foreach (int item in smallerPreferencesArrOfArr[i-1]){
+                    if (item > 0 && item <= numOfBigger && !dictionary[i].Contains(item)){
+                        noton9++;
+                        dictionary[i].Add(item);
+                        Console.WriteLine("Prof: "+i+" Student: "+item);
+                    }
+                }
+                if(noton9 == 0){
+                    on9smaller.Add(i);
+                }
+            }
             
-            // Add banker pair
-            for(int bankerID=1; bankerID <= numOfBankers; bankerID++){
-                foreach (int patiID in bankersPreferencesArrOfArr[bankerID-1]){
-                    if(patiID > 0 && patiID <= numOfParticipants){
-                        if(!list.Contains(new KeyValuePair<int, int>(bankerID, patiID))){
-                            list.Add(new KeyValuePair<int, int>(bankerID, patiID));
-                            Console.WriteLine("Banker ID:"+bankerID+" "+patiID);
+            for(int i=1; i <= numOfBigger; i++){
+                int noton9 = 0;
+                foreach (int item in biggerPreferencesArrOfArr[i-1]){
+                    if (item > 0 && item <= numOfSmallers){
+                        noton9++;
+                        if(!dictionary[item].Contains(i)){
+                            dictionary[item].Add(i);
+                            Console.WriteLine("Prof: "+item+" Student: "+i);
+                            on9smaller.Remove(item);
                         }
                     }
                 }
+                if(noton9 == 0){
+                    on9bigger.Add(i);
+                }
             }
-            // Add pati pair
-            for(int patiID=1; patiID <= numOfParticipants; patiID++){
-                foreach (int bankerID in participantsPreferencesArrOfArr[patiID-1]){
-                    if(bankerID > 0 && bankerID <= numOfBankers){
-                        if(!list.Contains(new KeyValuePair<int, int>(bankerID, patiID))){
-                            list.Add(new KeyValuePair<int, int>(bankerID, patiID));
+            
+            if(on9bigger.Count > on9smaller.Count){
+                for(int i = 0; i < on9smaller.Count;i++){
+                    dictionary[on9smaller[i]].Add(on9bigger[i]);
+                    on9bigger.Remove(on9bigger[i]);
+                    on9smaller.Remove(on9smaller[i]);
+                }
+            }else{
+                for(int i = 0; i < on9bigger.Count;i++){
+                    dictionary[on9smaller[i]].Add(on9bigger[i]);
+                    on9bigger.Remove(on9bigger[i]);
+                    on9smaller.Remove(on9smaller[i]);
+                }
+            }
+            
+            while(!empty){
+                for(int i = 1; i <= numOfSmallers; i++){
+                    if(dictionary[i].Any()){
+                        dictionary[i].RemoveAt(0);
+                    }else{
+                        if(on9bigger.Any()){
+                            on9bigger.RemoveAt(0);
                         }
-                        Console.WriteLine("Pati ID:"+patiID+" "+bankerID);
                     }
                 }
-            }
-            
-            // Count 
-            foreach (KeyValuePair<int, int> kvp in list)
-            {
-                if(!countRepect.ContainsKey(kvp.Key)){
-                    countRepect.Add(kvp.Key, 1);
-                }else{
-                    countRepect[kvp.Key]++;
+                repectTime++;
+                
+                empty = true;
+                for(int i=1; i <= numOfSmallers; i++){
+                    if(dictionary[i].Any()) empty = false;
                 }
             }
             
-            return countRepect.Values.Max() > countRepect.Keys.Max() ? countRepect.Values.Max() : countRepect.Keys.Max();
+            return repectTime;
         }
 
         private static int[][] parsePreferences(String[] preferences)
@@ -93,7 +120,12 @@ namespace Solution
             int[][] bankersPreferencesArrOfArr = parsePreferences(bankersPreferences);
             int[][] participantsPreferencesArrOfArr = parsePreferences(participantsPreferences);
 
-            int result = CalculateMinimumSession(numOfBankers, numOfParticipants, bankersPreferencesArrOfArr, participantsPreferencesArrOfArr);
+            int result;
+            if(numOfBankers>numOfParticipants){
+                result = CalculateMinimumSession(numOfParticipants, numOfBankers, participantsPreferencesArrOfArr, bankersPreferencesArrOfArr);
+            }else{
+                result = CalculateMinimumSession(numOfBankers, numOfParticipants, bankersPreferencesArrOfArr, participantsPreferencesArrOfArr);
+            }
 
             // Please do not remove the below line.
             Console.WriteLine(result);
