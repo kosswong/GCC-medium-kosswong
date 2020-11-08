@@ -12,6 +12,7 @@ double maximumExpectedMoney(int n, int k, double p[], double x[], double y[] )
         double ki = q.top().first;
         p[0]+=ki;
         q.pop();
+        
     }
     return p[0];
 }
