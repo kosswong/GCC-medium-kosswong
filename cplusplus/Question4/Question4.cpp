@@ -8,10 +8,8 @@ double maximumExpectedMoney(int n, int k, double p[], double x[], double y[] )
     std::priority_queue<std::pair<double, int>> q;
     for (int i = 0; i < test.size();  q.push(std::pair<double, int>(test[i], i)), ++i) {}
     p[0] = 0;
-    for (int i = 0; i < k; ++i) {
+    for (int i = 0; i < k; q.pop(), ++i)
         p[0]+=q.top().first;
-        q.pop();
-    }
     return p[0];
 }
 
