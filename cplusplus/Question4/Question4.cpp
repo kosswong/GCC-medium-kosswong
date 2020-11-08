@@ -9,12 +9,13 @@ double maximumExpectedMoney(int n, int k, double p[], double x[], double y[] )
     for (int i = 0; i < test.size();  q.push(std::pair<double, int>(test[i], i)), ++i) {}
     p[0] = 0;
     for (int i = 0; i < k; ++i) {
-        p[0]+=q.top().first;
-        
+        double ki = q.top().first;
+        p[0]+=ki;
         q.pop();
     }
     return p[0];
 }
+
 
 int main(){
     int n, m;
